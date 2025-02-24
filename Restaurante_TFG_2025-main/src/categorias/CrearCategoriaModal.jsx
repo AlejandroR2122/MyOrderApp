@@ -15,6 +15,7 @@ const CrearCategoriaModal = ({ handleCloseModal, categoriaEdit }) => {
       setNombre(categoriaEdit.nombre);
       setDescripcion(categoriaEdit.descripcion);
       setImagenPreview(`http://localhost:3000/${categoriaEdit.imagen}`);
+      setImagen(categoriaEdit.imagen);
       setIsActive(categoriaEdit.isActive);
     }
   }, [categoriaEdit]);
@@ -27,24 +28,26 @@ const CrearCategoriaModal = ({ handleCloseModal, categoriaEdit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     if (imagen) {
-          await uploadImageToS3(imagen,"Img_Categorias");
-        }
+    let imageName = imagen ? imagen.name : null;
+    if (imagen) {
+      console.log("IMAGEN " + imagen.name);
+      await uploadImageToS3(imagen, "Img_Categorias");
+    }
     const categoria = new Category(
       categoriaEdit ? categoriaEdit.id : null,
       nombre,
       descripcion,
-      imagen,
+      imageName,
       isActive
     );
-
+    console.log("CATEGORIA CREANDOSE " + JSON.stringify(categoria));
     const categoriaJson = JSON.stringify({
       nombre: categoria.nombre,
       descripcion: categoria.description,
-      imagen: categoria.imgCategory,
+      imagen: categoria.imgCategory, // Asegurarse de incluir el nombre de la imagen
       isActive: categoria.isActive
     });
-
+    console.log("CATEGORIA JSON " + categoriaJson);
     try {
       if (categoriaEdit) {
         await axios.put(`http://localhost:3000/server/categorias/${categoriaEdit.id}`, categoriaJson, {
@@ -54,6 +57,7 @@ const CrearCategoriaModal = ({ handleCloseModal, categoriaEdit }) => {
         });
         alert('Categoría actualizada exitosamente');
       } else {
+        console.log("CATEGORIAS CREADA " + categoriaJson);
         await axios.post('http://localhost:3000/server/categorias', categoriaJson, {
           headers: {
             'Content-Type': 'application/json',

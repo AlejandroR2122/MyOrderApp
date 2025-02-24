@@ -261,6 +261,8 @@ app.post('/server/categorias', async (req, res) => {
     console.log('Datos de la categoría:', req.body);
     const categoriaData = new Category(null, nombre, descripcion, imagen, isActive);
     const categoria = await Categoria.create(categoriaData);
+    console.log('Categoría guardada:', categoria);
+    console.log('Categoría guardada:', categoriaData);
     res.status(201).send(categoria);
   } catch (error) {
     console.error('Error al guardar la categoría:', error); // Agrega esta línea para registrar el error

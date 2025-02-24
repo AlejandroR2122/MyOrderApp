@@ -83,7 +83,7 @@ const Categorias = ({ handleCrearCategoriaClick }) => {
 
             <p className="text-xs font-bold">Descripción:</p>
             <p className="text-xs mb-2">{categoria.descripcion}</p>
-            {console.log("CATEGORIA IMAGEN " +categoria.imagen)}
+            {console.log("CATEGORIA IMAGEN " + JSON.stringify(categoria))}
             {categoria.imagen && (
               <div className="flex justify-center mb-2 XEEEEEE">
                 <ImagenCategorias imagenKey={categoria.imagen} />

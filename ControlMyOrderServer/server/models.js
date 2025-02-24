@@ -12,7 +12,7 @@ class Category {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.imgCategory = imgCategory;
+        this.imagen = imgCategory;
         this.isActive = isActive;
     }
 }
