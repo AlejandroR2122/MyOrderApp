@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Category } from '../models/model';
+import { createProducto, updateProducto, fetchCategorias, fetchIngredientes, uploadImageToS3 as uploadImageToS3 } from '../connections';
 
 const CrearCategoriaModal = ({ handleCloseModal, categoriaEdit }) => {
   const [nombre, setNombre] = useState('');
@@ -26,6 +27,9 @@ const CrearCategoriaModal = ({ handleCloseModal, categoriaEdit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     if (imagen) {
+          await uploadImageToS3(imagen,"Img_Categorias");
+        }
     const categoria = new Category(
       categoriaEdit ? categoriaEdit.id : null,
       nombre,
@@ -40,8 +44,6 @@ const CrearCategoriaModal = ({ handleCloseModal, categoriaEdit }) => {
       imagen: categoria.imgCategory,
       isActive: categoria.isActive
     });
-
-    console.log('Categoría a crear/actualizar:', categoriaJson);
 
     try {
       if (categoriaEdit) {

@@ -140,14 +140,12 @@ export const deleteIngrediente = async (id) => {
   }
 };
 
+// getUrlImagenes CATEGORIAS
 
-
-// getUrlImagenes
-
-const getUploadUrlProductos = async (file) => {
+const getUploadUrlCategorias = async (file) => {
   try {
    // file = "/Img_Productos/" + file;
-    const response = await fetch(`http://localhost:3000/s3/generateUploadUrl/productos?key=${file.name}`);
+    const response = await fetch(`http://localhost:3000/s3/generateUploadUrl?key=${"Img_Categorias/"+file.name}`);
     const data = await response.json();
     return data.uploadUrl; // Devuelve la URL pre-firmada
   } catch (error) {
@@ -156,8 +154,27 @@ const getUploadUrlProductos = async (file) => {
   }
 };
 
-export const uploadImageToS3Productos = async (file) => {
-  const uploadUrl = await getUploadUrlProductos(file);
+// getUrlImagenes  PRODUCTOS
+
+const getUploadUrlProductos = async (file) => {
+  try {
+   // file = "/Img_Productos/" + file;
+    const response = await fetch(`http://localhost:3000/s3/generateUploadUrl?key=${"Img_Productos/"+file.name}`);
+    const data = await response.json();
+    return data.uploadUrl; // Devuelve la URL pre-firmada
+  } catch (error) {
+    console.error("Error al obtener la URL de subida:", error);
+    return null;
+  }
+};
+
+export const uploadImageToS3 = async (file, ubicacion) => {
+  var uploadUrl =""
+  if(ubicacion === "Img_Productos"){
+     uploadUrl = await getUploadUrlProductos(file);
+  }else if(ubicacion === "Img_Categorias"){
+     uploadUrl = await getUploadUrlCategorias(file);
+  }
   if (!uploadUrl) return;
 
   try {
@@ -177,10 +194,28 @@ export const uploadImageToS3Productos = async (file) => {
   }
 };
 
-  export const obtenerUrlDeImagenProductos = async (key) => {
+  export const obtenerUrlDeImagen = async (key,ubicacion) => {
+    try {
+      if(ubicacion === "Img_Productos"){
+        key = "Img_Productos/"+key;
+      }
+      if(ubicacion === "Img_Categorias"){
+        key = "Img_Categorias/"+key;
+      }
+      console.log('Key:', key)
+      const response = await fetch(`http://localhost:3000/s3/generateDownloadUrl?key=${key}`);
+      const data = await response.json();
+      return data.downloadUrl;
+    } catch (error) {
+      console.error('Error obteniendo la URL de la imagen:', error);
+      return null;
+    }
+  };
+
+  export const obtenerUrlDeImagenCategorias = async (key) => {
     try {
       console.log('Key:', key)
-      const response = await fetch(`http://localhost:3000/s3/generateDownloadUrl/productos?key=${key}`);
+      const response = await fetch(`http://localhost:3000/s3/generateDownloadUrl?key=${key}`);
       const data = await response.json();
       return data.downloadUrl;
     } catch (error) {

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { obtenerUrlDeImagenProductos } from '../connections';
-
-const Imagen = ({ imagenKey }) => {
+import { obtenerUrlDeImagen } from '../connections';
+const ImagenCategorias = ({ imagenKey }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     const fetchImageUrl = async () => {
-      const url = await obtenerUrlDeImagenProductos(imagenKey);
+      const url = await obtenerUrlDeImagen(imagenKey, "Img_Categorias");
       setImageUrl(url);
     };
     fetchImageUrl();
@@ -27,4 +26,4 @@ const Imagen = ({ imagenKey }) => {
   );
 };
 
-export default Imagen;
+export default ImagenCategorias;

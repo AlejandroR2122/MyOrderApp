@@ -12,6 +12,13 @@ import AWS from 'aws-sdk';
 
 const app = express();
 const port = 3000;
+const host = '192.168.0.89';
+
+
+// Iniciar servidor
+app.listen(port,'0.0.0.0',  () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
 
 // Middleware
 app.use(cors());
@@ -251,6 +258,7 @@ app.delete('/server/productos/:id', async (req, res) => {
 app.post('/server/categorias', async (req, res) => {
   try {
     const { nombre, descripcion, imagen, isActive } = req.body;
+    console.log('Datos de la categoría:', req.body);
     const categoriaData = new Category(null, nombre, descripcion, imagen, isActive);
     const categoria = await Categoria.create(categoriaData);
     res.status(201).send(categoria);
@@ -355,10 +363,6 @@ app.delete('/server/ingredientes/:id', async (req, res) => {
   }
 });
 
-// Iniciar servidor
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
-});
 
 /*
  *
@@ -367,6 +371,7 @@ app.listen(port, () => {
  */
 // Send productos 
 app.get('/api/productos', async (req, res) => {
+  console.log('Productos');
   try {
     const products = await Product.findAll();
     const modifiedProducts = products.map(product => {
@@ -474,8 +479,10 @@ const S3_BUCKET = 'img-my-order';
 /* 
  * Rutas para AWS S3: Generar URL pre-firmada para subir y descargar imágenes
  */
-app.get('/s3/generateUploadUrl/productos', (req, res) => {
+app.get('/s3/generateUploadUrl', (req, res) => {
   const objectKey = req.query.key; // Por ejemplo: "uploads/imagen_usuario.jpg"
+  console.log('Key Subida', req.query.key);
+
   if (!objectKey) {
     return res.status(400).json({ error: 'Falta el parámetro "key".' });
   }
@@ -496,12 +503,12 @@ app.get('/s3/generateUploadUrl/productos', (req, res) => {
   });
 });
 
-app.get('/s3/generateDownloadUrl/productos', (req, res) => {
+app.get('/s3/generateDownloadUrl', (req, res) => {
+  console.log('Key Descarga', req.query.key);
   const objectKey = req.query.key; // Por ejemplo: "uploads/imagen_usuario.jpg"
   if (!objectKey) {
     return res.status(400).json({ error: 'Falta el parámetro "key".' });
   }
-  console.log("Key:", objectKey);
   const s3 = new AWS.S3();
   const params = {
     Bucket: S3_BUCKET,

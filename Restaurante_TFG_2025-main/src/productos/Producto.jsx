@@ -1,5 +1,5 @@
 import React from 'react';
-import Imagen from './imagen';
+import ImagenProductos from './imagenProductos';
 
 const Producto = ({ producto, handleDelete, handleEdit }) => {
   let categorias = [];
@@ -41,7 +41,7 @@ const Producto = ({ producto, handleDelete, handleEdit }) => {
       {/* Imagen (si existe) */}
       {producto.imagen && (
         <div className="flex justify-center mb-2">
-          <Imagen imagenKey={producto.imagen} />
+          <ImagenProductos imagenKey={producto.imagen} />
         </div>
       )}
 
