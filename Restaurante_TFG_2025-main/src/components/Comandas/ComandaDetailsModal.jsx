@@ -110,7 +110,6 @@ const ComandaDetailsModal = ({ mesa, onClose, mesas, setMesas }) => {
                     <td className="py-3 px-4">{producto.ingredientesExtras ? producto.ingredientesExtras.map(ing => ing.nombre).join(', ') : 'Ninguno'}</td>
 
                     <td className="py-3 px-4 flex space-x-2">
-                      <button className="bg-cheddar text-cream px-4 py-1 rounded-2xl font-flame hover:bg-cheddar/70">Editar</button>
                       <button onClick={() => { removeProductFromOrder(comanda.id, producto.id) }} className="bg-ketchup text-cream px-4 py-1 rounded-2xl font-flame hover:bg-ketchup/70">Borrar</button>
                     </td>
                   </tr>

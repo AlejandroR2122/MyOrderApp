@@ -201,8 +201,8 @@ const ListaProductos = () => {
                                         <ProductCard
                                                 key={producto.id}
                                                 producto={producto}
-                                                handleDelete={handleDelete}
-                                                handleEdit={handleEdit}
+                                                handleDelete={()=>handleDelete(producto.id)}
+                                                handleEdit={()=>handleEdit(producto)}
                                             />
                                     )) :
                                     <h3 className='font-flameSans text-xl py-8'>No se han encontrado productos con ese término de búsqueda.</h3>

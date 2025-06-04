@@ -151,7 +151,7 @@ const Category = ({ categoria, handleDelete, handleEdit }) => {
     return (
         <div style={{aspectRatio:"1/0.8"}} className='text-beef w-full bg-cream-dark border border-beef/10 box-border rounded-md p-2 flex flex-col gap-2'>
             <div className='relative w-full grow shrink h-[80%] rounded-md overflow-hidden'>
-                {!categoria.img ? 
+                {!categoria.imagen ? 
                     /* Si no tiene imagen sale la de por defecto y si SI tiene imagen pues sale la que devuelve el componente de ImagenCategorias */
                     <img className='absolute w-full h-full z-0 object-cover object-center' src={DefaultCategoryImg} alt='Categoría por defecto.'/>
                         :
