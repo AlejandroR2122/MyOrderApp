@@ -19,6 +19,7 @@ Este proyecto es una aplicación **full-stack** para gestionar comandas de resta
 ### Frontend:
 - **React**  
 - **Tailwind CSS**
+- **Kotlin CSS**
 
 ### Backend:
 - **Node.js**  
