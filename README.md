@@ -124,5 +124,5 @@ Abre un *Pull Request* en este repositorio describiendo tus modificaciones.
 
 Para dudas, sugerencias o reportes de bugs, abre un *Issue* en GitHub o contacta al equipo:
 
-- **By Alejandro, Victor y Manu** - [@Manabimassu](https://github.com/Manabimassu)  
-- Correo de contacto: `manuel12983@gmail.com`
+- **By Alejandro** -  
+- Correo de contacto: `alejandrorodro@gmail.com`
